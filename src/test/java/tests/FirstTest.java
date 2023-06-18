@@ -9,26 +9,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class FirstTest extends Base {
-    @Test(priority = 1)
-    void loginTest() throws InterruptedException {
-        //Thread.sleep(4000);
-        System.out.println(driver.getWindowHandle());
-        driver.findElement(By.name(getLocator().getString("username"))).sendKeys(getConfig().getString("user"));
-        driver.findElement(By.name(getLocator().getString("password"))).sendKeys(getConfig().getString("pass"));
-        driver.findElement(By.xpath(getLocator().getString("login_button"))).click();
-        //Thread.sleep(3000);
-        Assert.assertEquals(driver.getTitle().toString(), "OrangeHRM");
-    }
-
     @Test(priority = 2, dependsOnMethods = {"loginTest"})
     void searchAdmins() throws InterruptedException {
-
         driver.findElement(By.xpath(getLocator().getString("page"))).click();
         //Thread.sleep(4000);
         driver.findElement(By.xpath(getLocator().getString("role"))).click();
@@ -50,6 +37,16 @@ public class FirstTest extends Base {
         }
     }
 
+    @Test(priority = 1)
+    void loginTest() throws InterruptedException {
+        //Thread.sleep(4000);
+        System.out.println(driver.getWindowHandle());
+        driver.findElement(By.name(getLocator().getString("username"))).sendKeys(getConfig().getString("user"));
+        driver.findElement(By.name(getLocator().getString("password"))).sendKeys(getConfig().getString("pass"));
+        driver.findElement(By.xpath(getLocator().getString("login_button"))).click();
+        //Thread.sleep(3000);
+        Assert.assertEquals(driver.getTitle().toString(), "OrangeHRM");
+    }
 
     @Test(priority = 3, dependsOnMethods = {"loginTest"})
     void changeWindow() throws InterruptedException {
@@ -85,6 +82,4 @@ public class FirstTest extends Base {
         Assert.assertEquals(driver.findElement(By.xpath(getLocator().getString("mensaje"))).getText(),"Recarga a tu equipo de RH y empoderalos con tu poderoso software de recursos humanos");
 
     }
-
-
 }
