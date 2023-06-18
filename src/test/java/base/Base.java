@@ -6,11 +6,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
+import java.time.Duration;
 import java.util.ResourceBundle;
 
 public class Base {
 
     public static WebDriver driver;
+
     public static ResourceBundle getConfig() {
         ResourceBundle config = ResourceBundle.getBundle("config");
         return config;
@@ -28,6 +30,8 @@ public class Base {
             driver = new EdgeDriver();
         }else
             System.out.println("Invalid browser");
+
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         driver.manage().window().maximize();
         driver.get(getConfig().getString("testurl"));
