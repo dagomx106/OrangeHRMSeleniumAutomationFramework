@@ -38,18 +38,18 @@ public class FirstTest extends Base {
     }
 
     @Test(priority = 1)
-    void loginTest() throws InterruptedException {
+    void loginTest() {
         //Thread.sleep(4000);
         System.out.println(driver.getWindowHandle());
         driver.findElement(By.name(getLocator().getString("username"))).sendKeys(getConfig().getString("user"));
         driver.findElement(By.name(getLocator().getString("password"))).sendKeys(getConfig().getString("pass"));
         driver.findElement(By.xpath(getLocator().getString("login_button"))).click();
         //Thread.sleep(3000);
-        Assert.assertEquals(driver.getTitle().toString(), "OrangeHRM");
+        Assert.assertEquals(driver.getTitle(), "OrangeHRM");
     }
 
     @Test(priority = 3, dependsOnMethods = {"loginTest"})
-    void changeWindow() throws InterruptedException {
+    void changeWindow() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         //Scroll down till the bottom of the page
         js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
@@ -60,17 +60,17 @@ public class FirstTest extends Base {
         for(String x:wHandle2){
             System.out.println(x);
         }
-        List<String> list = new ArrayList<String>(wHandle2);
-        driver.switchTo().window(list.get(list.size()-1).toString());
+        List<String> list = new ArrayList<>(wHandle2);
+        driver.switchTo().window(list.get(list.size()-1));
         System.out.println(driver.getWindowHandle());
         //Thread.sleep(2000);
 
         String title2= "OrangeHRM HR Software | Free & Open Source HR Software | HRMS | HRIS | OrangeHRM";
-        Assert.assertEquals(driver.getTitle().toString(),title2);
+        Assert.assertEquals(driver.getTitle(),title2);
     }
 
     @Test(priority = 4, dependsOnMethods = {"loginTest","changeWindow"})
-    void changeLanguage() throws InterruptedException {
+    void changeLanguage()  {
 
         Actions action = new Actions(driver);
         WebElement flag = driver.findElement(By.xpath(getLocator().getString("flag")));
