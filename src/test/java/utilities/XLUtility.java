@@ -39,25 +39,25 @@ public class XLUtility {
         return rowcount;
     }
 
-    public int getCellCount(String sheetName,int rownum) throws IOException
+    public int getCellCount(String sheetName,int rowNum) throws IOException
     {
         fi=new FileInputStream(path);
         workbook=new XSSFWorkbook(fi);
         sheet=workbook.getSheet(sheetName);
-        row=sheet.getRow(rownum);
-        int cellcount=row.getLastCellNum();
+        row=sheet.getRow(rowNum);
+        int cellCount=row.getLastCellNum();
         workbook.close();
         fi.close();
-        return cellcount;
+        return cellCount;
     }
 
-    public String getCellData(String sheetName,int rownum,int colnum) throws IOException
+    public String getCellData(String sheetName,int rowNum,int colNum) throws IOException
     {
         fi=new FileInputStream(path);
         workbook=new XSSFWorkbook(fi);
         sheet=workbook.getSheet(sheetName);
-        row=sheet.getRow(rownum);
-        cell=row.getCell(colnum);
+        row=sheet.getRow(rowNum);
+        cell=row.getCell(colNum);
 
         DataFormatter formatter = new DataFormatter();
         String data;
@@ -72,7 +72,7 @@ public class XLUtility {
         fi.close();
         return data;
     }
-    public void setCellData(String sheetName,int rownum,int colnum,String data) throws IOException
+    public void setCellData(String sheetName,int rowNum,int colNum,String data) throws IOException
     {
         File xlfile=new File(path);
         if(!xlfile.exists())
@@ -88,11 +88,11 @@ public class XLUtility {
             workbook.createSheet(sheetName);
         sheet=workbook.getSheet(sheetName);
 
-        if(sheet.getRow(rownum)==null)
-            sheet.createRow(rownum);
-        row=sheet.getRow(rownum);
+        if(sheet.getRow(rowNum)==null)
+            sheet.createRow(rowNum);
+        row=sheet.getRow(rowNum);
 
-        cell=row.createCell(colnum);
+        cell=row.createCell(colNum);
         cell.setCellValue(data);
         fo=new FileOutputStream(path);
         workbook.write(fo);

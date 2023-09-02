@@ -14,13 +14,11 @@ public class Base {
     public static WebDriver driver;
 
     public static ResourceBundle getConfig() {
-        ResourceBundle config = ResourceBundle.getBundle("config");
-        return config;
+        return ResourceBundle.getBundle("config");
     }
 
     public static ResourceBundle getLocator() {
-        ResourceBundle loc = ResourceBundle.getBundle("locator");
-        return loc;
+        return ResourceBundle.getBundle("locator");
     }
     @BeforeClass
     public void setup(){
@@ -29,7 +27,7 @@ public class Base {
         } else if (getConfig().getString("browser").equalsIgnoreCase("edge")) {
             driver = new EdgeDriver();
         }else
-            System.out.println("Invalid browser");
+               System.out.println("Invalid browser");
 
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
